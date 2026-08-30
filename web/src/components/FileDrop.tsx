@@ -13,7 +13,11 @@ export interface CheckedFile {
 /** Same 1MB cap the API enforces, checked here so the error arrives sooner. */
 const MAX_FILE_BYTES = 1_048_576
 
-async function check(file: File): Promise<CheckedFile> {
+/**
+ * The one place a File becomes a CheckedFile. Exported so a hand-written quiz
+ * goes through exactly the same validation as an uploaded one.
+ */
+export async function checkFile(file: File): Promise<CheckedFile> {
   const slug = file.name.replace(/\.json$/i, '')
 
   if (!file.name.toLowerCase().endsWith('.json')) {
@@ -40,7 +44,7 @@ export default function FileDrop({ files, onChange }: FileDropProps) {
 
   const add = async (incoming: FileList | null) => {
     if (!incoming?.length) return
-    const checked = await Promise.all(Array.from(incoming).map(check))
+    const checked = await Promise.all(Array.from(incoming).map(checkFile))
     // Re-picking the same filename replaces it, matching the API's upsert.
     const bySlug = new Map(files.map((f) => [f.slug, f]))
     for (const item of checked) bySlug.set(item.slug, item)

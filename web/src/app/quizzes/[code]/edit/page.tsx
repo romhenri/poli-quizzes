@@ -2,8 +2,10 @@
 
 import { useCallback, useEffect, useState, use } from 'react'
 import Link from 'next/link'
-import { FaTrashAlt, FaArrowLeft } from 'react-icons/fa'
+import { FaTrashAlt, FaArrowLeft, FaTimes } from 'react-icons/fa'
 import FileDrop, { type CheckedFile } from '@/components/FileDrop'
+import QuizBuilder from '@/components/QuizBuilder'
+import SourceTabs, { type Source } from '@/components/SourceTabs'
 import { deleteList, deleteQuiz, fetchList, uploadQuizzes } from '@/lib/client'
 import type { QuizList } from '@/types/list'
 
@@ -25,6 +27,7 @@ export default function EditPage({ params }: { params: Promise<{ code: string }>
   const editKey = useEditKey()
   const [list, setList] = useState<QuizList | null>(null)
   const [files, setFiles] = useState<CheckedFile[]>([])
+  const [source, setSource] = useState<Source>('upload')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [deleted, setDeleted] = useState(false)
@@ -136,9 +139,43 @@ export default function EditPage({ params }: { params: Promise<{ code: string }>
           Add or replace
         </h2>
         <p className="mb-3 text-sm text-stone-600 dark:text-stone-300">
-          Uploading a file whose name already exists replaces that quiz in place.
+          Upload JSON or write a quiz here. Either way, a name that already exists
+          replaces that quiz in place.
         </p>
-        <FileDrop files={files} onChange={setFiles} />
+        <SourceTabs value={source} onChange={setSource} />
+        {source === 'upload' ? (
+          <FileDrop files={files} onChange={setFiles} />
+        ) : (
+          <QuizBuilder
+            onAdd={(added) =>
+              setFiles((prev) => [...prev.filter((f) => f.slug !== added.slug), added])
+            }
+          />
+        )}
+
+        {source === 'write' && files.length > 0 && (
+          <ul className="mt-4 space-y-2">
+            {files.map(({ slug }) => (
+              <li
+                key={slug}
+                className="flex items-center gap-3 p-3 bg-white border-2 rounded-lg border-stone-200 dark:border-stone-700 dark:bg-stone-900"
+              >
+                <span className="flex-grow font-mono text-sm truncate text-stone-800 dark:text-stone-100">
+                  {slug}.json
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setFiles((prev) => prev.filter((f) => f.slug !== slug))}
+                  aria-label={`Remove ${slug}`}
+                  className="p-1 shrink-0 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200"
+                >
+                  <FaTimes aria-hidden />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+
         <button
           type="button"
           disabled={busy || files.length === 0 || invalidCount > 0}

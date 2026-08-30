@@ -106,7 +106,9 @@ export default function SubjectCard({
         <div className="flex items-center justify-between mt-auto">
           <div className="flex items-center gap-2 text-xs text-stone-600 dark:text-stone-400 sm:text-sm">
             <FaQuestionCircle />
-            <span>{subject.questions} questions</span>
+            <span>
+              {subject.questions} {subject.questions === 1 ? 'question' : 'questions'}
+            </span>
             <span className="flex items-center gap-0.5" title={HARDNESS_TITLE[hardness]}>
               {[1, 2, 3].map((i) => (
                 <span

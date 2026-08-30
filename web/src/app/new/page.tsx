@@ -2,8 +2,10 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { FaArrowRight, FaCopy, FaCheck, FaExclamationTriangle } from 'react-icons/fa'
+import { FaArrowRight, FaCopy, FaCheck, FaTimes, FaExclamationTriangle } from 'react-icons/fa'
 import FileDrop, { type CheckedFile } from '@/components/FileDrop'
+import QuizBuilder from '@/components/QuizBuilder'
+import SourceTabs, { type Source } from '@/components/SourceTabs'
 import { createList, deleteList, uploadQuizzes } from '@/lib/client'
 
 interface Published {
@@ -38,6 +40,46 @@ function CopyRow({ label, value }: { label: string; value: string }) {
           {copied ? 'Copied' : 'Copy'}
         </button>
       </div>
+    </div>
+  )
+}
+
+/** What has been staged so far, when the dropzone's own list is not showing. */
+function AddedList({
+  files,
+  onRemove,
+}: {
+  files: CheckedFile[]
+  onRemove: (slug: string) => void
+}) {
+  return (
+    <div>
+      <h2 className="mb-2 text-sm font-semibold text-stone-700 dark:text-stone-200">
+        Ready to publish
+      </h2>
+      <ul className="space-y-2">
+        {files.map(({ slug, error }) => (
+          <li
+            key={slug}
+            className="flex items-center gap-3 p-3 bg-white border-2 rounded-lg border-stone-200 dark:border-stone-700 dark:bg-stone-900"
+          >
+            <span className="flex-grow font-mono text-sm truncate text-stone-800 dark:text-stone-100">
+              {slug}.json
+            </span>
+            {error && (
+              <span className="text-sm text-red-700 dark:text-red-300">{error}</span>
+            )}
+            <button
+              type="button"
+              onClick={() => onRemove(slug)}
+              aria-label={`Remove ${slug}`}
+              className="p-1 shrink-0 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200"
+            >
+              <FaTimes aria-hidden />
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
@@ -79,9 +121,17 @@ export default function NewListPage() {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [files, setFiles] = useState<CheckedFile[]>([])
+  const [source, setSource] = useState<Source>('upload')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [published, setPublished] = useState<Published | null>(null)
+
+  // A written quiz replaces one of the same name, exactly like re-picking a file.
+  const addFile = (added: CheckedFile) =>
+    setFiles((prev) => [...prev.filter((f) => f.slug !== added.slug), added])
+
+  const removeFile = (slug: string) =>
+    setFiles((prev) => prev.filter((f) => f.slug !== slug))
 
   const invalidCount = files.filter((f) => f.error).length
   const canPublish =
@@ -146,7 +196,18 @@ export default function NewListPage() {
           />
         </label>
 
-        <FileDrop files={files} onChange={setFiles} />
+        <div>
+          <SourceTabs value={source} onChange={setSource} />
+          {source === 'upload' ? (
+            <FileDrop files={files} onChange={setFiles} />
+          ) : (
+            <QuizBuilder onAdd={(file) => addFile(file)} />
+          )}
+        </div>
+
+        {source === 'write' && files.length > 0 && (
+          <AddedList files={files} onRemove={removeFile} />
+        )}
 
         {error && (
           <p className="p-3 text-sm font-semibold text-red-700 border-2 border-red-300 rounded-lg bg-red-50 dark:border-red-800 dark:bg-red-950/40 dark:text-red-300">
