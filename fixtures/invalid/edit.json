@@ -1,0 +1,1 @@
+{"id":"edit","name":"Reserved Slug","description":"/quizzes/<code>/edit is a real page, so a quiz cannot claim that slug.","color":"blue","category":"general","tags":["x"],"questions":[{"question":"Q?","options":["a","b"],"correctAnswer":0}]}

@@ -1,0 +1,1 @@
+{"id":"type-unknown","name":"Unknown Type","description":"An unrecognised type must be rejected, not silently defaulted.","color":"blue","category":"general","tags":["x"],"type":"matching","questions":[{"question":"Q?","options":["a","b"],"correctAnswer":0}]}

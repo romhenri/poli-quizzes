@@ -1,0 +1,12 @@
+{
+  "id": "seq-as-string",
+  "name": "Numeric String Seq",
+  "description": "polimind accepts seq as a numeric string.",
+  "color": "amber",
+  "category": "general",
+  "tags": ["ordering"],
+  "seq": "12",
+  "questions": [
+    { "question": "Is \"12\" a valid seq?", "options": ["No", "Yes"], "correctAnswer": 1 }
+  ]
+}

@@ -1,0 +1,1 @@
+{"id": "null-optionals", "name": "Explicit Nulls", "description": "An explicit null on an optional field means the same as omitting it.", "icon": null, "lang": null, "subcategory": null, "hardness": null, "seq": null, "color": "blue", "category": "general", "tags": ["x"], "questions": [{"question": "Q?", "options": ["a", "b"], "correctAnswer": 0, "explain": null}], "type": null}

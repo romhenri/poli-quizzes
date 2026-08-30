@@ -1,0 +1,23 @@
+{
+  "id": "full-metadata",
+  "name": "Every Optional Field",
+  "description": "Exercises icon, hardness, seq, lang, type and explain.",
+  "icon": "brain",
+  "color": "teal",
+  "category": "computer-science",
+  "subcategory": "theory",
+  "tags": ["math", "logic"],
+  "hardness": "hard",
+  "seq": 3,
+  "lang": "pt",
+  "type": "options",
+  "questions": [
+    {
+      "question": "Qual a complexidade da busca binária?",
+      "options": ["O(n)", "O(log n)", "O(n log n)", "O(1)"],
+      "correctAnswer": 1,
+      "explain": "A cada passo o espaço de busca cai pela metade."
+    },
+    { "question": "Uma árvore binária pode ter 3 filhos?", "options": ["Sim", "Não"], "correctAnswer": 1 }
+  ]
+}

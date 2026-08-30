@@ -1,0 +1,1 @@
+{"id":"float-integral-index","name":"Integral Float Index","description":"correctAnswer 1.0 is the integer 1 once JSON is parsed.","color":"blue","category":"general","tags":["x"],"seq":2.0,"questions":[{"question":"Q?","options":["a","b"],"correctAnswer":1.0}]}

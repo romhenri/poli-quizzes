@@ -1,0 +1,1 @@
+{"id":"correct-answer-negative","name":"Negative Index","description":"correctAnswer must be >= 0.","color":"blue","category":"general","tags":["x"],"questions":[{"question":"Q?","options":["a","b"],"correctAnswer":-1}]}

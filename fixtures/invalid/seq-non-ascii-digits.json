@@ -1,0 +1,1 @@
+{"id":"seq-non-ascii-digits","name":"Arabic-Indic Seq","description":"Python isdigit() accepts these; the sort does not.","color":"blue","category":"general","tags":["x"],"seq":"١٢","questions":[{"question":"Q?","options":["a","b"],"correctAnswer":0}]}

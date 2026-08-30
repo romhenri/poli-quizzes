@@ -1,0 +1,1 @@
+{"id":"seq-double-negative","name":"Double Negative Seq","description":"lstrip(-) would happily eat both dashes.","color":"blue","category":"general","tags":["x"],"seq":"--5","questions":[{"question":"Q?","options":["a","b"],"correctAnswer":0}]}

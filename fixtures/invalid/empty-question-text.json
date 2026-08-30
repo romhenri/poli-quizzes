@@ -1,0 +1,1 @@
+{"id":"empty-question-text","name":"Blank Question","description":"question text cannot be blank.","color":"blue","category":"general","tags":["x"],"questions":[{"question":"   ","options":["a","b"],"correctAnswer":0}]}

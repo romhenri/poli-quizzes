@@ -1,0 +1,11 @@
+{
+  "id": "minimal",
+  "name": "Minimal Quiz",
+  "description": "The smallest thing that validates.",
+  "color": "blue",
+  "category": "general",
+  "tags": ["basics"],
+  "questions": [
+    { "question": "2 + 2?", "options": ["3", "4"], "correctAnswer": 1 }
+  ]
+}

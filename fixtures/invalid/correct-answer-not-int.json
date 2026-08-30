@@ -1,0 +1,1 @@
+{"id":"correct-answer-not-int","name":"String Index","description":"correctAnswer must be an integer, not a string.","color":"blue","category":"general","tags":["x"],"questions":[{"question":"Q?","options":["a","b"],"correctAnswer":"1"}]}
